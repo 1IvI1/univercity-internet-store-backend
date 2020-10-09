@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 const checkUserExistance = (usename, password) => {
+  //TODO request database, check if exists user
   return {
     username: usename,
     id: "1"
