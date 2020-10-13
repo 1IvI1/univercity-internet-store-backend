@@ -3,17 +3,26 @@ const mysql = require("mysql");
 const connect = mysql.createConnection({
   host: "127.0.0.1",
   user: "toor",
-  password: "toor"
+  password: "toor",
+  database: "getlab"
 });
 
 const connectToDatabase = () => {
   connect.connect(err => {
-    if (err) throw err; 
-    console.log("Connected!");
+    if (err) throw err;
+    console.log("Connected to database!");
   });
-  connect.on('error', function(err) {
-    console.log("[mysql error]",err);
-  });
+  return (query, handler) => {
+    console.log("entered query: ", query)
+    connect.query(query, (error, result) => {
+      try {
+        if(error) throw error
+        handler(result);
+      } catch (err) {
+        console.log("err: ", err);
+      }
+    });
+  };
 };
 
-module.exports = connectToDatabase
+module.exports = connectToDatabase;

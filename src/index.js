@@ -1,21 +1,32 @@
-const express = require("express")
-const PORT = 4000
-const databaseConnector = require("./database/DatabaseConnector")
-const jwtRequests = require("./requests/jwt/JwtTokenRequests")
-const bodyParser = require("body-parser")
-const cors = require("cors")
-// databaseConnector()
-const app = express()
+require("dotenv").config();
+const express = require("express");
+const databaseConnector = require("./database/DatabaseConnector");
+const jwt = require("./services/JwtTokenService");
+const databaseCreator = require("./services/CreateDatabaseService");
+const databaseInserter = require("./services/FillDatabaseService");
+const userController = require("./services/UserService");
+const verifyToken = require("./utils/TokenVerifier")
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
 
-app.use(bodyParser.json())
-app.use(cors())
+const databaseQuery = databaseConnector();
 
-app.get("/", async (req, res) => {
-    res.json({message: "hello"})
-})
+app.use(bodyParser.json());
+app.use(cors());
 
-app.use("/login", jwtRequests)
+app.use("/auth", jwt.router);
 
-app.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`)
-})
+app.use(verifyToken);
+
+app.use("/database", databaseCreator.router);
+app.use("/fill-database", databaseInserter);
+app.use("/users", userController.router);
+
+
+
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port: ${process.env.PORT}`);
+});
+
+module.exports.runQuery = databaseQuery;

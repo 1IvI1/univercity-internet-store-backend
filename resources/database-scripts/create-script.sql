@@ -1,9 +1,4 @@
 CREATE DATABASE getlab;
-CREATE TABLE users (
-  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(25),
-  lastName varchar(25)
-);
 
 CREATE TABLE universities (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -27,4 +22,15 @@ CREATE TABLE groups (
   shortName varchar(10),
   facultyId int,
   FOREIGN KEY (facultyId) REFERENCES faculties(id)
+);
+
+CREATE TABLE users (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  name varchar(25),
+  role varchar(10),
+  username varchar(25),
+  password varchar(25),
+  email varchar(30),
+  phone varchar(15),
+  refreshToken text
 );
