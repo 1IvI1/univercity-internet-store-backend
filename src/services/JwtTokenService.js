@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const JwtController = require("../controllers/JwtTokenController");
 const JwtTokenGenerators = require("../utils/JwtTokenGenerators");
+const userController = require("../controllers/UserController");
 
 router.get("/check-auth", async (req, res) => {
   try {
@@ -68,7 +69,7 @@ router.post("/login", async (req, res) => {
     const user = response && response.length ? { ...response[0] } : null;
     if (!user)
       return res
-        .status(401)
+        .status(400)
         .json({ errorMessage: "Invalid login or password" });
     const accessToken = JwtTokenGenerators.generateToken(user);
     const refreshToken = JwtTokenGenerators.generateRefreshToken(user);
@@ -77,6 +78,28 @@ router.post("/login", async (req, res) => {
     });
     res.json({ accessToken, refreshToken });
   });
+});
+
+router.post("/sign-up", async (req, res) => {
+  try {
+    const { name, role, username, password, email, phone } = req.body;
+    console.log(req.body);
+    userController.checkUserExistance(
+      result => {
+        if (result)
+          return res.status(400).json({ errorMessage: "User already exists" });
+        userController.createNewUser(
+          result => {
+           res.json("succesfully registered")
+          },
+          { name, role, username, password, email, phone }
+        );
+      },
+      { username, password }
+    );
+  } catch (err) {
+    console.log("Error on /sign-up route: ", err);
+  }
 });
 
 module.exports.router = router;

@@ -28,6 +28,10 @@ const deleteUserRefreshToken = (userId, handler) => {
   );
 };
 
+const signUp = () => {
+  
+}
+
 module.exports.login = login;
 module.exports.getUserRefreshTokenById = getUserRefreshTokenById;
 module.exports.setUserRefreshToken = setUserRefreshToken;
