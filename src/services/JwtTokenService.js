@@ -6,6 +6,25 @@ const JwtController = require("../controllers/JwtTokenController");
 const JwtTokenGenerators = require("../utils/JwtTokenGenerators");
 const userController = require("../controllers/UserController");
 
+router.get("/check-login", async (req, res) => {
+  try {
+    const accessToken = req.headers["access-token"];
+    const userToken = accessToken ? accessToken.split(" ")[1] : null;
+    console.log(userToken);
+    if (!userToken)
+      return res.status(400).json({ errorMessage: "Got no token" });
+    jwt.verify(userToken, process.env.REFRESH_TOKEN, error => {
+      if (error)
+        return res
+          .status(403)
+          .json({ errorMessage: "Invalid token, may be corrupted" });
+      res.status(200).json("Token is valid");
+    });
+  } catch {
+    res.status(400).json({ errorMessage: "Got no token" });
+  }
+});
+
 router.get("/check-auth", async (req, res) => {
   try {
     const accessToken = req.headers["access-token"];
@@ -17,7 +36,7 @@ router.get("/check-auth", async (req, res) => {
       if (error)
         return res
           .status(403)
-          .json({ errorMessage: "Invalid refresh token, may be corrupted" });
+          .json({ errorMessage: "Invalid token, may be corrupted" });
       res.status(200).json("Token is valid");
     });
   } catch {

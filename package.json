@@ -25,6 +25,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.2",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "websocket": "^1.0.32",
+    "ws": "^7.3.1"
   }
 }

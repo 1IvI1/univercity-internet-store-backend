@@ -3,7 +3,7 @@ POST http://localhost:4000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "uname",
+  "username": "Ichi",
   "password": "1234"
 }
 
@@ -62,3 +62,21 @@ access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik
 ###
 
 GET http://localhost:4000/auth/check-auth
+
+###
+
+POST http://localhost:4000/auth/sign-up HTTP/1.1
+Content-Type: application/json
+
+{ "name": "Ivan", "role": "user", "username": "Ichi", "password": "1234", "email": "ivi@gmail.com", "phone": "+37368212577" }
+
+###
+
+POST  http://localhost:4000/message/send HTTP/1.1
+Content-Type: application/json
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA0MjY2ODA5LCJleHAiOjE2MDQyNjc0MDl9.GTAbjqxqFWyTAH7ljEnNpUW_UKOzxM4HeU0VJsQzWUc
+
+{
+  "id": 1,
+  "message": "helloooou"
+}
