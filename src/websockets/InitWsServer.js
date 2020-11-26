@@ -1,5 +1,6 @@
 const ws = require("ws");
 const JsonParse = require("../utils/JsonParse");
+const checkAuth = require("./utils").checkWsAuth
 
 const onlineUsers = new Map();
 
@@ -11,12 +12,9 @@ const HandleOnlineUsers = server => {
     wsClient.on("message", msg => {
       const parsedMsg = JsonParse(msg);
       if (parsedMsg) {
-        console.log("parsedMsg", parsedMsg);
-        onlineUsers.set(parsedMsg.id, wsClient);
-        wsClient.send(`Hi ${parsedMsg.name}`);
-      } else {
-        console.log("Closing ws");
-        wsClient.close();
+        if(parsedMsg.type === "auth") {
+          checkAuth(parsedMsg.token, onlineUsers, wsClient)
+        }
       }
     });
 
@@ -29,9 +27,12 @@ const HandleOnlineUsers = server => {
     onlineUsers.forEach((x, i) => {
       if (x.readyState !== ws.OPEN) {
         onlineUsers.delete(i);
+        console.log('Closed: ', i)
+      } else if(x.readyState === ws.OPEN) {
+        // x.send(JSON.stringify({msg: "hello"}))
       }
     });
-  }, 60000 * 5);
+  }, 2000/*60000 * 5*/);
 };
 
 module.exports.HandleOnlineUsers = HandleOnlineUsers;

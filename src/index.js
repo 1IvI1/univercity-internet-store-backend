@@ -12,6 +12,8 @@ const cors = require("cors");
 const InitWsServer = require("./websockets/InitWsServer")
 const path = require("path")
 const messagesRouter = require("./services/MessagesService")
+const ChatsRouter = require("./services/ChatsService")
+const universityPuter = require("./services/UniversityService")
 
 const app = express();
 
@@ -29,13 +31,15 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", jwt.router);
+app.use("/university", universityPuter);
 
 app.use(verifyToken);
 
+app.use("/chats", ChatsRouter);
+app.use("/message", messagesRouter)
 app.use("/database", databaseCreator.router);
 app.use("/fill-database", databaseInserter);
 app.use("/users", userController.router);
-app.use("/message", messagesRouter)
 
 
 server.listen(process.env.PORT, () => {

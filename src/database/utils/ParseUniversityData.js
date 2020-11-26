@@ -18,6 +18,8 @@ const createUniversitySqlScript = () => {
     prevI = i;
   });
   sql += ");";
+  console.log("sql", sql);
+
   return sql;
 };
 
@@ -29,17 +31,19 @@ const createFacultiesSqlScript = () => {
     univ.faculties.forEach((fac, facI, facArr) => {
       const connector =
         facI === facArr.length - 1 && univI === univArr.length - 1 ? " " : ", ";
-      console.log("sql", sql);
+      // console.log("sql", sql);
       if (prevI < facI || (facI === 0 && sql.includes("VALUES ('"))) {
         sql = sql.slice(0, sql.lastIndexOf(","));
         sql += "),(";
       }
       sql += `'${fac.fullName}','${fac.shortName}',${univI + 1}${connector}`;
-      console.log("univI", univI);
+      // console.log("univI", univI);
       prevI = facI;
     });
   });
   sql += ");";
+  console.log("sql", sql);
+
   return sql;
 };
 
@@ -61,19 +65,21 @@ const createGroupsSqlScript = () => {
     });
   });
   sql += ");";
+  console.log("sql", sql);
+
   return sql;
 };
 
-console.log(
-  createGroupsSqlScript()
-  // .split("")
-  // .reduce((acc, x) => {
-  //   if (x === "(") {
-  //     return (acc += 1);
-  //   }
-  //   return acc;
-  // }, 0)
-);
+// console.log(
+//   createGroupsSqlScript()
+//   // .split("")
+//   // .reduce((acc, x) => {
+//   //   if (x === "(") {
+//   //     return (acc += 1);
+//   //   }
+//   //   return acc;
+//   // }, 0)
+// );
 
 module.exports = {
   createUniversitySqlScript,
