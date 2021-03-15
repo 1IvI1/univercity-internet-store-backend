@@ -14,4 +14,14 @@ const checkWsAuth = (token, onlineUsers, wsClient) => {
   });
 }
 
+const parseJwt = (token) => {
+  let user = null
+  token = token.split(' ')[1]
+  jwt.verify(token, process.env.TOKEN_SECRET, (error, decodedJwt) => {
+    user = decodedJwt
+  })
+  return user
+}
+
 module.exports.checkWsAuth = checkWsAuth
+module.exports.parseJwt = parseJwt

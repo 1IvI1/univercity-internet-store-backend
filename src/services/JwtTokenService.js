@@ -116,16 +116,15 @@ router.post("/login", async (req, res) => {
 
 router.post("/sign-up", async (req, res) => {
   try {
-    const { name, role, username, password, email, phone } = req.body;
+    const { name, role, username, password, email, phone, groupId } = req.body;
     console.log(req.body);
     userController.checkUserExistance(
-
       { username, password }
     ).then(result => {
       if (result)
         return res.status(400).json({ errorMessage: "User already exists" });
       userController.createNewUser(
-        { name, role, username, password, email, phone }
+        { name, role, username, password, email, phone, groupId }
       ).then(() => {
         res.json("Succesfully registered")
       })

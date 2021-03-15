@@ -74,43 +74,28 @@ Content-Type: application/json
 
 POST  http://localhost:4000/message/send HTTP/1.1
 Content-Type: application/json
-access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA0MjY2ODA5LCJleHAiOjE2MDQyNjc0MDl9.GTAbjqxqFWyTAH7ljEnNpUW_UKOzxM4HeU0VJsQzWUc
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA2OTg2NTMwLCJleHAiOjE2MDY5OTI1MzB9.g6GUQ3WyBgStfsP02pwvwMJQ1K6nYQMzU1Hr_5XC19I
 
-{
-  "userId": 1,
+{"data":{
   "message": "helloooou",
-  "chatId": 6
-}
+  "chatId": 19
+}}
 
 ###
 
-GET  http://localhost:4000/message/last-message HTTP/1.1
+GET  http://localhost:4000/message/last-message/user/2 HTTP/1.1
 Content-Type: application/json
-access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA2MjAyNDE0LCJleHAiOjE2MDYyMDg0MTR9.ndZHLj7TsBeokZdHKG9uX2BmxcQykE9a5wa4HmAbAVQ
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA2NzMxOTA3LCJleHAiOjE2MDY3Mzc5MDd9.JiVxxzCzjJVJOeCCqQgjTrqCWPjKLYedaplLQ-zoIcI
 
-{
-  "chatIds": [1, 2]
-}
 
 ###
 
 POST http://localhost:4000/chats/create HTTP/1.1
 Content-Type: application/json
-access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InRlc3QyIiwicm9sZSI6InVzZXIiLCJlbWFpbCI6Iml2aUBnbWFpbC5jb20iLCJwaG9uZSI6IiszNzM2ODIxMjU3NyIsImlhdCI6MTYwNTc3MjExOCwiZXhwIjoxNjA1Nzc4MTE4fQ.P7AhsxmL2DwrG6BJdv4pll1GNDClxGXBZrjhwtv83Qk
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA2OTg2NTMwLCJleHAiOjE2MDY5OTI1MzB9.g6GUQ3WyBgStfsP02pwvwMJQ1K6nYQMzU1Hr_5XC19I
 
 {
   "userIds": [1,2]
-}
-
-###
-
-POST http://localhost:4000/message/send HTTP/1.1
-Content-Type: application/json
-access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6InRlc3QyIiwicm9sZSI6InVzZXIiLCJlbWFpbCI6Iml2aUBnbWFpbC5jb20iLCJwaG9uZSI6IiszNzM2ODIxMjU3NyIsImlhdCI6MTYwNTc3MjExOCwiZXhwIjoxNjA1Nzc4MTE4fQ.P7AhsxmL2DwrG6BJdv4pll1GNDClxGXBZrjhwtv83Qk
-
-{
-  "chatId": "1",
-  "msg": "Test message"
 }
 
 ###
@@ -123,6 +108,12 @@ access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik
 GET http://localhost:4000/university/faculties/1 HTTP/1.1
 Content-Type: application/json
 access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA2MDUwNDMyLCJleHAiOjE2MDYwNTY0MzJ9.38hCJRkhrwy3TrUssdSxZnN77Whd57ED0j14ji8fcnE
+###
+
+GET http://localhost:4000/university/lectures/1 HTTP/1.1
+Content-Type: application/json
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikl2YW4iLCJyb2xlIjoidXNlciIsImVtYWlsIjoiaXZpQGdtYWlsLmNvbSIsInBob25lIjoiKzM3MzY4MjEyNTc3IiwiaWF0IjoxNjA3MDM1NTU1LCJleHAiOjE2MDcwNDE1NTV9.wuTRFGNE3Qnpo5Lc3x6aV41ECNcbRIF7BULXQGr_UGM
+
 ###
 
 GET http://localhost:4000/university/groups/1 HTTP/1.1

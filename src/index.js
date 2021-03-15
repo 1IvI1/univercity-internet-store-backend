@@ -13,7 +13,10 @@ const InitWsServer = require("./websockets/InitWsServer")
 const path = require("path")
 const messagesRouter = require("./services/MessagesService")
 const ChatsRouter = require("./services/ChatsService")
-const universityPuter = require("./services/UniversityService")
+const universityRuter = require("./services/UniversityService")
+const postRouter = require("./services/PostsService")
+const profileRouter = require("./services/ProfileService")
+const subscriptionsRouter = require("./services/SubscriptionsService")
 
 const app = express();
 
@@ -21,7 +24,7 @@ const server = http.createServer(app)
 
 const databaseQuery = databaseConnector();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "10mb", extended: true}));
 app.use(cors());
 
 app.use("/static", express.static(path.join(__dirname, "ws-testing", "static")))
@@ -31,21 +34,24 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", jwt.router);
-app.use("/university", universityPuter);
+app.use("/university", universityRuter);
 
-app.use(verifyToken);
+// app.use(verifyToken);
 
 app.use("/chats", ChatsRouter);
 app.use("/message", messagesRouter)
 app.use("/database", databaseCreator.router);
 app.use("/fill-database", databaseInserter);
 app.use("/users", userController.router);
+app.use("/post", postRouter);
+app.use("/profile", profileRouter);
+app.use("/subscriptions", subscriptionsRouter);
 
+server.listen(process.env.PORT, (request, socket, head) => {
+InitWsServer.HandleOnlineUsers(request, socket, head, server)
 
-server.listen(process.env.PORT, () => {
   console.log(`Listening on port: ${process.env.PORT}`);
 });
 
-InitWsServer.HandleOnlineUsers(server)
 
 module.exports.runQuery = databaseQuery;

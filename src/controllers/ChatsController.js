@@ -1,8 +1,9 @@
 const databaseQuery = require("../index");
 
-const createChat = (userIds) => {
-  databaseQuery.runQuery("INSERT INTO chats(id) VALUES (NULL);").then(response => {
+const createChat = ({userIds, name}) => {
+  return databaseQuery.runQuery(`INSERT INTO chats(name) VALUES ('${name}');`).then(response => {
     connectUsersToChat(userIds, response.insertId)
+    return response.insertId
   })
 }
 

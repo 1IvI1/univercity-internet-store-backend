@@ -70,6 +70,36 @@ const createGroupsSqlScript = () => {
   return sql;
 };
 
+const insertLectures = () => {
+  const lectures = []
+  let index = 1;
+  mergedData.forEach(university => {
+    university.faculties.forEach(group => {
+      group.gropus.forEach(lec => {
+        const data = {
+          id: index,
+          lectures: lec.lectures
+        }
+        lectures.push(data)
+        console.log('lec.shortName, index', lec.shortName, index)
+      })
+      index++
+    })
+  })
+
+  let query = 'INSERT INTO lectures(name, groups_fac_id) VALUES '
+  lectures.forEach((x, xi) => {
+    x.lectures.forEach((y, yi)=> {
+      query += `('${y}', ${x.id})${xi === lectures.length - 1 && yi === x.lectures.length - 1 ? '' : ','}`
+    })
+  })
+
+  query += ';'
+  return query
+}
+
+console.log(insertLectures())
+
 // console.log(
 //   createGroupsSqlScript()
 //   // .split("")
@@ -84,5 +114,6 @@ const createGroupsSqlScript = () => {
 module.exports = {
   createUniversitySqlScript,
   createFacultiesSqlScript,
-  createGroupsSqlScript
+  createGroupsSqlScript,
+  insertLectures
 };
